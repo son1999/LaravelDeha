@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('','HomeControler@index')->name('admin.dashboard');
+	Route::get('showCate','CategoryController@showTable');
+    Route::resource('category','CategoryController');
+ });
