@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Login page</title>
-	<link rel="stylesheet" href="{{ asset('assets/admin/css/sb-admin-2.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/demo/bootstrap.min.css') }}">
 </head>
 <body>
 	<div class="container">
@@ -23,7 +23,7 @@
 						@endif
 					</div>
 				</div>
-				<form action="{{ route('admin.handle-login') }}" method="POST" class="mt-4">
+				<form action="{{ route('handle-login') }}" method="POST" class="mt-4">
 					@csrf
 					<div class="form-group">
 						<label for="user"> Username</label>

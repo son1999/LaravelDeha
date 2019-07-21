@@ -16,7 +16,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+    public function dashboard(){
+        return view('admin.dashboard.dashboard');
+    }
 
     public function showTable(){
         $category = Category::all();
@@ -26,7 +28,6 @@ class CategoryController extends Controller
     {
         $category = Category::paginate(10);
         return view('admin.pages.category.list',compact('category'));
-//      return response()->json([$category]);
     }
 
     /**
