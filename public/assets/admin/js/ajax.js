@@ -19,7 +19,6 @@ $(document).ready(function() {
    success: function($data) {
     $('#tableCate').empty();
     $.each($data, function(key, value) {
-
      var status = (value.status == 1) ? "Hien thi" : "khong hien thi"
      var obj = ` 
            <tr>
