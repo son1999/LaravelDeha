@@ -20,10 +20,10 @@ Route::get('admin/login','UserController@GetloginAdmin');
 Route::post('admin/login','UserController@PostloginAdmin')->name('login');
 Route::get('admin/logout','UserController@GetlogoutAdmin')->name('logout');
 
-Route::group(['prefix' => 'admin'],function(){
-	Route::get('/dashboad','CategoryController@dashboard')->name('dashboard');
-	Route::get('showCate','CategoryController@showTable');
-    Route::resource('category','CategoryController');
+Route::group(['middleware'=>'adminLogin','prefix' => 'admin'],function(){
+		Route::get('/','CategoryController@dashboard')->name('dashboard');
+		Route::get('showCate','CategoryController@showTable');
+   	 	Route::resource('category','CategoryController');
 });
 
 

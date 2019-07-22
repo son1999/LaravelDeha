@@ -18,18 +18,18 @@ class UserController extends Controller
          if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
          {
              if(Auth::user()->ruler == 1){
-                 return redirect('admin/dashboad');
+                 return redirect()->route('dashboard');
              }
              else{
-                 return redirect('admin/login')->with('error','Đăng nhập thất bại');
+                 return redirect()->route('login')->with('error','Đăng nhập thất bại');
              }
          }else{
-             return redirect('admin/login')->with('error','Đăng nhập thất bại');
+             return redirect()->route('login')->with('error','Đăng nhập thất bại');
          }
     }
 
     public function GetlogoutAdmin(){
         Auth::logout();
-        return redirect('admin/login');
+        return redirect()->route('login');
     }
 }

@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #353A40">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboad">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-user-shield"></i>
         </div>
@@ -15,7 +15,8 @@
       <li class="nav-item active">
         <a class="nav-link" href="/admin">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          Dashboard
+        </a>
       </li>
 
       <!-- Divider -->
@@ -63,8 +64,6 @@
           </div>
         </div>
       </li>
-
-      <!-- Divider -->
       <hr class="sidebar-divider">
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
