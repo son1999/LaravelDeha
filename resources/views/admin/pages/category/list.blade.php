@@ -1,6 +1,40 @@
 @extends('admin.layouts.master')
 @section('content')
-<h1>Danh sách loại sản phẩm</h1>
+<h1 class="d-sm-inline-block">Danh sách loại sản phẩm</h1>
+<button type="button" class="btn btn-success float-right d-sm-inline-block" data-toggle="modal" data-target="#add-category"><i class="fas fa-plus"></i></button>
+<div class="modal fade" id="add-category" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Category</h6>
+                </div>
+                <div class="row" style="margin: 5px">
+                    <div class="col-xl-8 mb-2 offset-2">
+                        <form role="form" id="table" method="post">
+                            <fieldset class="form-group">
+                                <label class="d-sm-inline-block float-left">Name</label>
+                                <input class="form-control" name="name" placeholder="Nhập tên category">
+                                <span class="error mt-2 d-lg-block w-100" style="font-size: 16px; color: red !important;"></span>
+                            </fieldset>
+                            <div class="form-group">
+                                <label class="d-sm-inline-block">Status</label>
+                                <select class="form-control" name="status">
+                                    <option value="1">Hiển Thị</option>
+                                    <option value="0">Không Hiển Thị</option>
+                                </select>
+                            </div>
+                            <button type="button" id="add-cate" class="btn btn-success">Thêm</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
 <table class="table table-striped text-center">
     <thead>
         <tr>
@@ -11,7 +45,7 @@
         </tr>
     </thead>
     <tbody id="tableCate">
-       
+        
     </tbody>
 </table>
 <div class="pull-right">{{ $category->links() }}</div>
@@ -32,7 +66,6 @@
                             <fieldset class="form-group">
                                 <label>Name</label>
                                 <input class="form-control name" name="name" placeholder="Nhập tên category">
-                                
                                 <span class="error mt-2 d-lg-block w-100" style="font-size: 16px; color: red !important;"></span>
                             </fieldset>
                             <div class="form-group">

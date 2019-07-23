@@ -17,7 +17,7 @@
 				</fieldset>
 				<div class="form-group">
 					<label>Status</label>
-					<select class="form-control" name="status">
+					<select class="form-control" id="status" name="status">
 						<option value="1">Hiển Thị</option>
 						<option value="0">Không Hiển Thị</option>
 					</select>

@@ -22,7 +22,7 @@ $(document).ready(function() {
      var status = (value.status == 1) ? "Hien thi" : "khong hien thi"
      var obj = ` 
            <tr>
-              <td>` + parseInt(key + 1) + `</td>
+              <td>` + parseInt(key+1) + `</td>
               <td>` + value.name + `</td>
               <td>
                  ` + status + `
@@ -39,6 +39,29 @@ $(document).ready(function() {
   })
  }
  showCate();
+ //create
+      $('body').on('click', '#add-category', function(event) {
+       $('#add-cate').click(function(event) {
+         $.ajax({
+         url: 'admin/category',
+         type: 'post',
+         dataType:'json',
+         data: $('#table').serialize(),
+          success:function($data){
+            if ($data.error == 'true') {
+             $('.error').show();
+             $('.error').text($data.message.name[0]);
+            } else {
+             toastr.success($data.success, 'Thông báo', {
+              timeOut: 5000
+             });
+             $('#add-category').modal('hide');
+             showCate();
+            }
+          }
+         })
+       });
+     });
  //edit
  $('body').on('click', '.edit', function(event) {
   $('.error').hide();

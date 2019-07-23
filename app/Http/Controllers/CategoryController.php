@@ -49,23 +49,34 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create([
-            'name' => $request->name,
-            'slug' => $request->name,
-            'status' => $request->status,
-        ]);
-        return redirect()->route('category.index');
+        $validate = Validator::make($request->all(),
+         [
+             'name' => 'required|min:2|max:255|unique:category,name',
+         ],
+         [
+             'required' => 'Tên danh mục sản phẩm không được để trống',
+             'min' => 'Tên danh mục sản phẩm tối thiểu 2 kí tự',
+             'max' => 'Tên danh mục sản phẩm tối đa 255 kí tự',
+             'unique' => 'Ten danh muc san pham da ton tai',
+         ]
+         );
+         if($validate->fails()){
+             return response()->json(['error'=>'true','message'=>$validate->errors()],200);
+         }
+        $category = Category::create($request->all());
+        return response()->json([$category,'success'=>'them thành công']);
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Respons
      */
     public function show($id)
     {
-        //
+        //-
     }
 
     /**
