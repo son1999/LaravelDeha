@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\CustomRule;
 class LoginAdminRequest extends FormRequest
 {
     /**
@@ -30,7 +30,7 @@ class LoginAdminRequest extends FormRequest
     {
         return [
             'email' => 'required|min:2|max:255',
-            'password' => 'required|min:2|max:255',
+            'password' => ['required',new CustomRule()],
         ];
     }
     public function messages()
@@ -40,6 +40,7 @@ class LoginAdminRequest extends FormRequest
           'min' => ':attribute toi thieu 2 ki tu',
           'max' => ':attribute toi da 255 ki tu',
           'unique' => ':attribute da ton tai',
+          'password.required' => 'Mật Khẩu không được để trống',
         ];
     }
     public function attributes()

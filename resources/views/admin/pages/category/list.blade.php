@@ -12,19 +12,20 @@
                 <div class="row" style="margin: 5px">
                     <div class="col-xl-8 mb-2 offset-2">
                         <form role="form" id="table" method="post">
+
                             <fieldset class="form-group">
                                 <label class="d-sm-inline-block float-left">Name</label>
-                                <input class="form-control" name="name" placeholder="Nhập tên category">
+                                <input class="form-control name-category" name="name" placeholder="Nhập tên category">
                                 <span class="error mt-2 d-lg-block w-100" style="font-size: 16px; color: red !important;"></span>
                             </fieldset>
                             <div class="form-group">
                                 <label class="d-sm-inline-block">Status</label>
-                                <select class="form-control" name="status">
+                                <select class="form-control status-category" name="status">
                                     <option value="1">Hiển Thị</option>
                                     <option value="0">Không Hiển Thị</option>
                                 </select>
                             </div>
-                            <button type="button" id="add-cate" class="btn btn-success">Thêm</button>
+                            <input type="submit" id="add-cate" class="btn btn-success" value="Thêm"></input>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -63,6 +64,7 @@
                 <div class="row" style="margin: 5px">
                     <div class="col-lg-12 mb-2">
                         <form role="form" id="form_category">
+                            <input type="hidden" name="id" class="id-category">
                             <fieldset class="form-group">
                                 <label>Name</label>
                                 <input class="form-control name" name="name" placeholder="Nhập tên category">

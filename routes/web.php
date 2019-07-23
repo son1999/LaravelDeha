@@ -21,9 +21,9 @@ Route::post('admin/login','UserController@PostloginAdmin')->name('login');
 Route::get('admin/logout','UserController@GetlogoutAdmin')->name('logout');
 
 Route::group(['middleware'=>'adminLogin','prefix' => 'admin'],function(){
-		Route::get('/','CategoryController@dashboard')->name('dashboard');
-		Route::get('showCate','CategoryController@showTable');
-   	 	Route::resource('category','CategoryController');
+	Route::get('/','HomeController@dashboard')->name('dashboard');
+	Route::get('showCate','CategoryController@showTable');
+	Route::resource('category','CategoryController');
+	Route::get('showProductType','ProductTypeController@showData');
+	Route::resource('producttype','ProductTypeController');
 });
-
-

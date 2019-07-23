@@ -12,10 +12,11 @@ class UserstableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-        	'name' => 'son',
-        	'email' => 'nguyenthaison@gmail.com',
-        	'password' => bcrypt('12345678'),
-        	'ruler' => '1',
+            'name' => 'Nguyễn Sơn',
+            'email' => 'nguyenthaison3999@gmail.com',
+            'password' => bcrypt('Nguyen'),
+            'ruler' => 1,
+            'status' => 1,
         ]);
     }
 }

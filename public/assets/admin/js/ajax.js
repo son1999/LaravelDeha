@@ -6,6 +6,9 @@ $.ajaxSetup({
 $('#edit').on('hidden.bs.modal', function() {
  jQuery('span').text('');
 });
+$('body').on('hidden.bs.modal', function() {
+ jQuery('span').text('');
+});
 $(document).ready(function() {
  $('.error').hide();
 
@@ -19,10 +22,10 @@ $(document).ready(function() {
    success: function($data) {
     $('#tableCate').empty();
     $.each($data, function(key, value) {
-     var status = (value.status == 1) ? "Hien thi" : "khong hien thi"
+     var status = (value.status == 1) ? `<i class="fas fa-grin-beam" style="color:#61B38C; font-size:25px;"></i>` : `<i class="fas fa-angry" style="color:#E67569; font-size:25px;"></i>`
      var obj = ` 
            <tr>
-              <td>` + parseInt(key+1) + `</td>
+              <td>` + parseInt(key + 1) + `</td>
               <td>` + value.name + `</td>
               <td>
                  ` + status + `
@@ -40,28 +43,35 @@ $(document).ready(function() {
  }
  showCate();
  //create
-      $('body').on('click', '#add-category', function(event) {
-       $('#add-cate').click(function(event) {
-         $.ajax({
-         url: 'admin/category',
-         type: 'post',
-         dataType:'json',
-         data: $('#table').serialize(),
-          success:function($data){
-            if ($data.error == 'true') {
-             $('.error').show();
-             $('.error').text($data.message.name[0]);
-            } else {
-             toastr.success($data.success, 'Thông báo', {
-              timeOut: 5000
-             });
-             $('#add-category').modal('hide');
-             showCate();
-            }
-          }
-         })
-       });
-     });
+ $('#table').on('submit', function(event) {
+  let name = $('.name-category').val();
+  let status = $('.status-category').val();
+  event.preventDefault();
+  $.ajax({
+   url: 'admin/category',
+   type: 'post',
+   dataType: 'json',
+   processData: false,
+   contentType: false,
+   cache: false,
+   data: new FormData(this),
+   success: function($data) {
+    console.log($data);
+    $('#table')[0].reset();
+    toastr.success($data.success, 'Thông báo', {
+     timeOut: 5000
+    });
+    $('#add-category').modal('hide');
+    showCate();
+   },
+   error: function(data) {
+    console.log(data);
+    let error = $.parseJSON(data.responseText);
+    $('.error').show();
+    $('.error').text(error.errors.name);
+   }
+  })
+ });
  //edit
  $('body').on('click', '.edit', function(event) {
   $('.error').hide();
@@ -72,8 +82,8 @@ $(document).ready(function() {
    type: 'get',
    dataType: 'json',
    success: function($data) {
-    console.log($data.status);
-    $('.name').val($data.name); 
+    $('.name').val($data.name);
+    $('.id-category').val($data.id);
     $('.status').val($data.status);
    }
   });
@@ -87,20 +97,25 @@ $(document).ready(function() {
    dataType: 'json',
    data: $('#form_category').serialize(),
    success: function($data) {
-    if ($data.error == 'true') {
-     console.log($data.message);
+    toastr.success($data.success, 'Thông báo', {
+     timeOut: 5000
+    });
+    $('#edit').modal('hide');
+    
+    showCate();
+   },
+   error: function(data) {
+    console.log(data);
+    let error = $.parseJSON(data.responseText);
+    if (error.errors.name != "") {
      $('.error').show();
-     $('.error').text($data.message.name[0]);
-    } else {
-     toastr.success($data.success, 'Thông báo', {
-      timeOut: 5000
-     });
-     $('#edit').modal('hide');
-     showCate();
+    $('.error').text(error.errors.name);
     }
+    
    }
-  });
 
+  });
+  //delete
  });
  $('body').on('click', '.delete', function(event) {
   let id = $(this).data('id');
@@ -109,10 +124,10 @@ $(document).ready(function() {
     url: 'admin/category/' + id,
     type: 'DELETE',
     dataType: 'json',
-    data: $('#form_category').serialize(),
+    // data: $('#form_category').serialize(),
     success: function($data) {
      toastr.success($data.success, 'Thông báo', {
-      timeOut: 10000
+      timeOut: 5000
      });
      $('#delete').modal('hide');
      showCate();

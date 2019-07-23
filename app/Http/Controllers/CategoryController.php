@@ -10,23 +10,24 @@ use mysql_xdevapi\BaseResult;
 
 class CategoryController extends Controller
 {
+    protected $category;
+
+    public function __construct(Category $category)
+    {
+        $this->cate = $category;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function dashboard(){
-        return view('admin.dashboard.dashboard');
-    }
-
     public function showTable(){
-        $category = Category::all();
+        $category = $this->cate->showCategory();
         return response()->json($category);
     }
     public function index()
     {
-        $category = Category::paginate(10);
+        $category = $this->cate->showPaginateCategory();
         return view('admin.pages.category.list',compact('category'));
     }
 
@@ -48,24 +49,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCategoryRequest $request)
-    {
-        $validate = Validator::make($request->all(),
-         [
-             'name' => 'required|min:2|max:255|unique:category,name',
-         ],
-         [
-             'required' => 'Tên danh mục sản phẩm không được để trống',
-             'min' => 'Tên danh mục sản phẩm tối thiểu 2 kí tự',
-             'max' => 'Tên danh mục sản phẩm tối đa 255 kí tự',
-             'unique' => 'Ten danh muc san pham da ton tai',
-         ]
-         );
-         if($validate->fails()){
-             return response()->json(['error'=>'true','message'=>$validate->errors()],200);
-         }
-        $category = Category::create($request->all());
-        return response()->json([$category,'success'=>'them thành công']);
-
+    {  
+        $input = $request->all();
+        if($input){
+            $category = $this->cate->add($input);
+            return response()->json([$category,'success'=>'Thêm thành công']);
+        }
     }
 
     /**
@@ -87,7 +76,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
+        $category = $this->cate->findId($id);
         return response()->json($category,200);
     }
 
@@ -98,29 +87,13 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(StoreCategoryRequest $request,$id)
     {
-         $validate = Validator::make($request->all(),
-         [
-             'name' => 'required|min:2|max:255 ',
-         ],
-         [
-             'required' => 'Tên danh mục sản phẩm không được để trống',
-             'min' => 'Tên danh mục sản phẩm tối thiểu 2 kí tự',
-             'max' => 'Tên danh mục sản phẩm tối đa 255 kí tự',
-
-         ]
-         );
-         if($validate->fails()){
-             return response()->json(['error'=>'true','message'=>$validate->errors()],200);
-         }
-         $category = Category::find($id);
-         $category->update([
-             'name' => $request->name,
-             'slug' => $request->name,
-             'status' => $request->status,
-         ]);
-         return response()->json([$category,'success'=>'Sửa thành công']);
+        $input = $request->all();
+        if($input){
+            $category = $this->cate->updateCategory($input,$id);
+            return response()->json([$category,'success'=>'Sửa thành công']);
+        }
     }
 
     /**
@@ -130,8 +103,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->delete();
+        $category = $this->cate->deleteCategory($id);
         return response()->json(['success'=>'Xóa thành công']);
     }
 }
