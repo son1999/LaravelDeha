@@ -31,9 +31,21 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          Tùy Chọn
+          Category
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('category.index') }}">Danh Sách Thể loại</a>
+            <a class="collapse-item" href="{{ route('category.create') }}">Thêm Mới thể Loại</a>
+          </div>
+        </div>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+          <i class="fas fa-fw fa-cog"></i>
+          Tùy Chọn
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ route('category.index') }}">Danh Sách Thể loại</a>
             <a class="collapse-item" href="{{ route('category.create') }}">Thêm Mới thể Loại</a>

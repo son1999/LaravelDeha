@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-<h1 class="d-sm-inline-block">Danh sách loại sản phẩm</h1>
+<h1 class="d-sm-inline-block">Danh sách Thể loại sản phẩm</h1>
 <button type="button" class="btn btn-success float-right d-sm-inline-block" data-toggle="modal" data-target="#add-category"><i class="fas fa-plus"></i></button>
 <div class="modal fade" id="add-category" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -40,7 +40,7 @@
     <thead>
         <tr>
             <th>STT</th>
-            <th>Tên Loại sản phẩm</th>
+            <th>Tên Thể Loại Sản Phẩm</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>

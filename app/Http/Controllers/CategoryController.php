@@ -14,7 +14,7 @@ class CategoryController extends Controller
 
     public function __construct(Category $category)
     {
-        $this->cate = $category;
+        $this->category = $category;
     }
     /**
      * Display a listing of the resource.
@@ -22,12 +22,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showTable(){
-        $category = $this->cate->showCategory();
+        $category = $this->category->showCategory();
         return response()->json($category);
     }
     public function index()
     {
-        $category = $this->cate->showPaginateCategory();
+        $category = $this->category->showPaginateCategory();
         return view('admin.pages.category.list',compact('category'));
     }
 
@@ -39,7 +39,6 @@ class CategoryController extends Controller
     public function create()
     {
         return view('admin.pages.category.add');
-
     }
 
     /**
@@ -52,7 +51,7 @@ class CategoryController extends Controller
     {  
         $input = $request->all();
         if($input){
-            $category = $this->cate->add($input);
+            $category = $this->category->add($input);
             return response()->json([$category,'success'=>'Thêm thành công']);
         }
     }
@@ -76,7 +75,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->cate->findId($id);
+        $category = $this->category->findId($id);
         return response()->json($category,200);
     }
 
@@ -91,7 +90,7 @@ class CategoryController extends Controller
     {
         $input = $request->all();
         if($input){
-            $category = $this->cate->updateCategory($input,$id);
+            $category = $this->category->updateCategory($input,$id);
             return response()->json([$category,'success'=>'Sửa thành công']);
         }
     }
@@ -103,7 +102,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = $this->cate->deleteCategory($id);
-        return response()->json(['success'=>'Xóa thành công']);
+        $category = $this->category->deleteCategory($id);
+        if($category){
+            return response()->json(['success'=>'Xóa thành công']);
+        }
     }
 }

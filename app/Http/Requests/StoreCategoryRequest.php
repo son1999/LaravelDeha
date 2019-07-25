@@ -24,7 +24,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255|unique:category,name,'.($this->id ?? " "),
+            'name' => 'required|min:2|max:255|unique:category,name,'.($this->id ?? ""),
         ];
     }
     public function messages()

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTypes extends Model
+class ProductType extends Model
 {
     protected $table = 'producttype';
     protected $fillable = [
@@ -12,6 +12,8 @@ class ProductTypes extends Model
     ];
 
     public function Category(){
-        return $this->belongsTo('App\Models\Categories','idCategory','id');
+        return $this->belongsTo('App\Models\Category','idCategory','id');
     }
+
+
 }

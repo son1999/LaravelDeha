@@ -16,14 +16,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('admin/login','UserController@GetloginAdmin');
-Route::post('admin/login','UserController@PostloginAdmin')->name('login');
-Route::get('admin/logout','UserController@GetlogoutAdmin')->name('logout');
+Route::get('login','UserController@GetloginAdmin');
+Route::post('login','UserController@PostloginAdmin')->name('login');
+Route::get('logout','UserController@GetlogoutAdmin')->name('logout');
 
 Route::group(['middleware'=>'adminLogin','prefix' => 'admin'],function(){
 	Route::get('/','HomeController@dashboard')->name('dashboard');
 	Route::get('showCate','CategoryController@showTable');
 	Route::resource('category','CategoryController');
-	Route::get('showProductType','ProductTypeController@showData');
+	Route::get('showProductType','ProductTypeController@showProductType');
 	Route::resource('producttype','ProductTypeController');
 });

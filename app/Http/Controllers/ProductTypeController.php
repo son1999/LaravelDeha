@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ProductType;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
+use App\Http\Requests\StoreProductTypeRequest;
 class ProductTypeController extends Controller
 {
     /**
@@ -12,11 +13,18 @@ class ProductTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showProductType(){
+        $productType = ProductType::all();
+        $category = Category::all();
+        return response()->json(['productType'=>$productType,'category'=>$category]);
+    }
     public function index()
     {
-        //
+        $category = Category::where('status',1)->get();
+        $productType = ProductType::paginate(5);
+        return view('admin.pages.productType.list',compact('productType','category'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +32,8 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::where('status',1)->get();
+        return view('admin.pages.productType.add',compact('category'));
     }
 
     /**
@@ -33,11 +42,12 @@ class ProductTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductTypeRequest $request)
     {
-        //
+        $productType = $request->all();
+        ProductType::create($productType);
+        return response()->json([$productType,'success'=>'Thêm thành công']);
     }
-
     /**
      * Display the specified resource.
      *
@@ -55,9 +65,11 @@ class ProductTypeController extends Controller
      * @param  \App\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductType $productType)
+    public function edit(ProductType $productType,$id)
     {
-        //
+        $productType = ProductType::find($id);
+        $category = Category::where('status',1)->get();
+        return response()->json(['productType'=>$productType,'category'=>$category]);
     }
 
     /**
@@ -67,9 +79,13 @@ class ProductTypeController extends Controller
      * @param  \App\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductType $productType)
+    public function update(Request $request,$id)
     {
-        //
+        $productType = ProductType::find($id);
+        $input = $request->all();
+        $result = $productType->update($input);
+        return response()->json([$result,'success'=>'Sửa thành Công']);
+     
     }
 
     /**
@@ -78,8 +94,12 @@ class ProductTypeController extends Controller
      * @param  \App\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductType $productType)
+    public function destroy(ProductType $productType,$id)
     {
-        //
+        $productType = ProductType::find($id);
+        if($productType){
+            $productType->delete($id);
+            return response()->json(['success'=>'xóa thành công']);
+        }
     }
 }
