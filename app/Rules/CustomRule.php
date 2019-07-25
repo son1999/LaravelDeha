@@ -19,18 +19,18 @@ class CustomRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
         if (!empty($value)) {
-           $parem = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){2,255}$/";
-           if(preg_match($parem,$value,$matchs)){
-            return true;
-           }    
-        }else{
+            $parem = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){2,255}$/";
+            if (preg_match($parem, $value, $matchs)) {
+                return true;
+            }
+        } else {
             return false;
         }
     }
